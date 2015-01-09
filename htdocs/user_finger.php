@@ -14,7 +14,7 @@ if (!isset($usage_summary)){
 EOM;
 }
 
-if ($config[general_decode_normal_attributes] == 'yes'){
+if ($config['general_decode_normal_attributes'] == 'yes'){
 	if (is_file("../lib/lang/$config[general_prefered_lang]/utf8.php"))
 		include_once("../lib/lang/$config[general_prefered_lang]/utf8.php");
 	else
@@ -41,7 +41,7 @@ EOM;
 $date = strftime('%A, %e %B %Y, %T %Z');
 
 $sql_extra_query = '';
-if ($config[sql_accounting_extra_query] != ''){
+if ($config['sql_accounting_extra_query'] != ''){
 	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
 	$sql_extra_query = da_sql_escape_string($sql_extra_query);
 }
@@ -52,32 +52,32 @@ $tot_in = $tot_rem = 0;
 if ($link){
 	$h = 21;
 	$servers_num = 0;
-	if ($config[general_ld_library_path] != '')
+	if ($config['general_ld_library_path'] != '')
 		putenv("LD_LIBRARY_PATH=$config[general_ld_library_path]");
 	foreach($nas_list as $nas){
 		$j = 0;
 		$num = 0;
 
 		if ($server != ''){
-			if ($nas[name] == $server)
+			if ($nas['name'] == $server)
 				$servers_num++;
 			else
 				continue;
 		}
 		else
 			$servers_num++;
-		if ($nas[ip] == '')
+		if ($nas['ip'] == '')
 			continue;
-		$name_data = $nas[ip];
-		$community_data = $nas[community];
-		$server_name[$servers_num] = $nas[name];
-		$server_model[$servers_num] = $nas[model];
+		$name_data = $nas['ip'];
+		$community_data = $nas['community'];
+		$server_name[$servers_num] = $nas['name'];
+		$server_model[$servers_num] = $nas['model'];
 		$extra = "";
-		$finger_type = $config[general_finger_type];
-		if ($nas[finger_type] != '')
-			$finger_type = $nas[finger_type];
+		$finger_type = $config['general_finger_type'];
+		if ($nas['finger_type'] != '')
+			$finger_type = $nas['finger_type'];
 		if ($finger_type == 'snmp'){
-			$nas_type = ($nas[type] != '') ? $nas[type] : $config[general_nas_type];
+			$nas_type = ($nas['type'] != '') ? $nas[type] : $config['general_nas_type'];
 			if ($nas_type == '')
 				$nas_type = 'cisco';
 
@@ -98,7 +98,7 @@ if ($link){
 		acctstoptime IS NULL AND nasipaddress = '$name_data' $extra $sql_extra_query;");
 		if ($search){
 			if (($row = @da_sql_fetch_array($search,$config)))
-				$num = $row[onlineusers];
+				$num = $row['onlineusers'];
 		}
 		$search = @da_sql_query($link,$config,
 		"SELECT DISTINCT username,acctstarttime,framedipaddress,callingstationid
@@ -183,8 +183,8 @@ EOM;
 	<tr bgcolor="#d0ddb0">
 	<th>#</th><th>user</th>
 EOM;
-	if ($acct_attrs['uf'][4] != '')	echo "<th>" . $acct_attrs[uf][4] . "</th>\n";
-	if ($acct_attrs['uf'][9] != '') echo "<th>" . $acct_attrs[uf][9] . "</th>\n";
+	if ($acct_attrs['uf'][4] != '')	echo "<th>" . $acct_attrs['uf'][4] . "</th>\n";
+	if ($acct_attrs['uf'][9] != '') echo "<th>" . $acct_attrs['uf'][9] . "</th>\n";
 echo <<<EOM
 	<th>name</th><th>duration</th>
 	</tr>

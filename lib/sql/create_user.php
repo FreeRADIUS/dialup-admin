@@ -6,7 +6,7 @@ else{
 	exit();
 }
 include_once('../lib/functions.php');
-if ($config[sql_use_operators] == 'true'){
+if ($config['sql_use_operators'] == 'true'){
 	include("../lib/operators.php");
 	$text = ',op';
 	$passwd_op = ",':='";
@@ -26,7 +26,7 @@ if ($link){
 			echo "<b>Unable to add user $login: " . da_sql_error($link,$config) . "</b><br>\n";
 			$da_abort=1;
 		}
-		if ($config[sql_use_user_info_table] == 'true' && !$da_abort){
+		if ($config['sql_use_user_info_table'] == 'true' && !$da_abort){
 			$res = @da_sql_query($link,$config,
 			"SELECT username FROM $config[sql_user_info_table] WHERE
 			username = '$login';");

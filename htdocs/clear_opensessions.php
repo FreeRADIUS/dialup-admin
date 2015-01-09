@@ -41,7 +41,7 @@ include("../html/user_toolbar.html.php");
 $open_sessions = 0;
 
 $sql_extra_query = '';
-if ($config[sql_accounting_extra_query] != ''){
+if ($config['sql_accounting_extra_query'] != ''){
 	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
 	$sql_extra_query = da_sql_escape_string($sql_extra_query);
 }
@@ -116,12 +116,12 @@ if ($drop_conns == 1){
 }
 if ($clear_sessions == 1){
 	$sql_servers = array();
-	if ($config[sql_extra_servers] != '')
-		$sql_servers = explode(' ',$config[sql_extra_servers]);
+	if ($config['sql_extra_servers'] != '')
+		$sql_servers = explode(' ',$config['sql_extra_servers']);
 	$quer = '= 0';
-	if ($config[sql_type] == 'pg')
+	if ($config['sql_type'] == 'pg')
 		$quer = 'IS NULL';
-	$sql_servers[] = $config[sql_server];
+	$sql_servers[] = $config['sql_server'];
 	foreach ($sql_servers as $server){
 		$link = @da_sql_host_connect($server,$config);
 		if ($link){
@@ -154,7 +154,7 @@ else{
 		WHERE username = '$login' AND acctstoptime IS NULL $sql_extra_query;");
 		if ($search){
 			if ($row = @da_sql_fetch_array($search,$config))
-				$open_sessions = $row[counter];
+				$open_sessions = $row['counter'];
 		}
 		else
 			echo "<b>Database query failed: " . da_sql_error($link,$config) . "</b><br>\n";

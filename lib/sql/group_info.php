@@ -6,7 +6,7 @@ else{
 	echo "<b>Could not include SQL library</b><br>\n";
 	exit();
 }
-if ($config[sql_use_operators] == 'true'){
+if ($config['sql_use_operators'] == 'true'){
 	$op = ',op';
 	$use_op = 1;
 }else{
@@ -78,7 +78,7 @@ if ($link){
 				if (@da_sql_num_rows($res,$config))
 					$group_exists = 'yes';
 				while(($row = @da_sql_fetch_array($res,$config))){
-					$member = $row[username];
+					$member = $row['username'];
 					$group_members[] = "$member";
 				}
 			}

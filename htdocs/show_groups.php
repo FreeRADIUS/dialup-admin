@@ -20,7 +20,7 @@ else{
 EOM;
 	exit();
 }
-if ($config[general_lib_type] != 'sql'){
+if ($config['general_lib_type'] != 'sql'){
 	echo <<<EOM
 <title>User Groups</title>
 <meta http-equiv="Content-Type" content="text/html; charset=$config[general_charset]">
@@ -37,7 +37,7 @@ EOM;
 ?>
 <head>
 <title>User Groups</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>

@@ -2,7 +2,7 @@
 require('../conf/config.php');
 
 if ($login == 'da_server_test'){
-	$login = $config[general_test_account_login];
+	$login = $config['general_test_account_login'];
 	$test_login=1;
 }
 
@@ -58,19 +58,19 @@ EOM;
 
 <?php
 if ($server == '' || !preg_match('/^[\w\.]+$/',$server))
-	$server = $config[general_radius_server];
+	$server = $config['general_radius_server'];
 if ($port == 0 || !is_numeric($port))
-	$port = $config[general_radius_server_port];
+	$port = $config['general_radius_server_port'];
 if ($auth_proto == '')
-	$auth_proto = $config[general_radius_server_auth_proto];
+	$auth_proto = $config['general_radius_server_auth_proto'];
 $selected[$auth_proto] = 'selected';
 
 if ($test_user == 1){
 	$tmp_file = tempnam("$config[general_tmp_dir]",'DA');
-	$req=file($config[general_auth_request_file]);
-	if ($config[general_ld_library_path] != '')
+	$req=file($config['general_auth_request_file']);
+	if ($config['general_ld_library_path'] != '')
 		putenv("LD_LIBRARY_PATH=$config[general_ld_library_path]");
-	$comm = $config[general_radclient_bin] . " $server:$port" . ' auth ' . $config[general_radius_server_secret]
+	$comm = $config['general_radclient_bin'] . " $server:$port" . ' auth ' . $config['general_radius_server_secret']
 		. ' >' . $tmp_file;
 	$fp = popen("$comm","w");
 	if ($fp){

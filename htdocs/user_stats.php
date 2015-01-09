@@ -26,9 +26,9 @@ EOM;
 
 if ($start == '' && $stop == ''){
 	$now = time();
-	$stop = date($config[sql_date_format],$now);
+	$stop = date($config['sql_date_format'],$now);
 	$now -= 604800;
-	$start = date($config[sql_date_format],$now);
+	$start = date($config['sql_date_format'],$now);
 }
 $start = da_sql_escape_string($start);
 $stop = da_sql_escape_string($stop);
@@ -39,7 +39,7 @@ if ($pagesize > 100)
 	$pagesize = 100;
 $limit = ($pagesize == 'all') ? '100' : "$pagesize";
 $selected[$pagesize] = 'selected';
-$order = ($order) ? $order : $config[general_accounting_info_order];
+$order = ($order) ? $order : $config['general_accounting_info_order'];
 if ($order != 'desc' && $order != 'asc')
 	$order = 'desc';
 if ($sortby != '')
@@ -56,7 +56,7 @@ $selected[$order] = 'selected';
 $selected[$sortby] = 'selected';
 
 $sql_extra_query = '';
-if ($config[sql_accounting_extra_query] != ''){
+if ($config['sql_accounting_extra_query'] != ''){
 	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
 	$sql_extra_query = da_sql_escape_string($sql_extra_query);
 }
@@ -205,10 +205,10 @@ EOM;
 <select name="server">
 <?php
 foreach ($nas_list as $nas){
-	$name = $nas[name];
-	if ($nas[ip] == '')
+	$name = $nas['name'];
+	if ($nas['ip'] == '')
 		continue;
-	$servers[$name] = $nas[ip];
+	$servers[$name] = $nas['ip'];
 }
 ksort($servers);
 foreach ($servers as $name => $ip){

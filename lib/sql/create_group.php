@@ -6,7 +6,7 @@ else{
 	echo "<b>Could not include SQL library</b><br>\n";
 	exit();
 }
-if ($config[sql_use_operators] == 'true'){
+if ($config['sql_use_operators'] == 'true'){
 	include("../lib/operators.php");
 	$text = ',op';
 	$passwd_op = ",':='";

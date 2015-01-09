@@ -240,21 +240,21 @@ EOM;
 echo <<<EOM
 		<tr align=center bgcolor="#efefe4">
 			<td>maximum</td>
-			<td>{$data[max][1]}</td>
-			<td>{$data[max][2]}</td>
-			<td>{$data[max][3]}</td>
+			<td>{$data['max'][1]}</td>
+			<td>{$data['max'][2]}</td>
+			<td>{$data['max'][3]}</td>
 			</tr>
 		<tr align=center bgcolor="#f7f7e4">
 			<td>average</td>
-			<td>{$data[avg][1]}</td>
-			<td>{$data[avg][2]}</td>
-			<td>{$data[avg][3]}</td>
+			<td>{$data['avg'][1]}</td>
+			<td>{$data['avg'][2]}</td>
+			<td>{$data['avg'][3]}</td>
 			</tr>
 		<tr align=center bgcolor="#efefe4">
 			<td>sum</td>
-			<td>{$data[sum][1]}</td>
-			<td>{$data[sum][2]}</td>
-			<td>{$data[sum][3]}</td>
+			<td>{$data['sum'][1]}</td>
+			<td>{$data['sum'][2]}</td>
+			<td>{$data['sum'][3]}</td>
 			</tr>
 EOM;
 ?>
