@@ -16,14 +16,14 @@ if ($link){
 	if ($max > 500)
 		$max = 10;
 	if (($search_IN == 'name' || $search_IN == 'department' || $search_IN == 'username') &&
-			$config[sql_use_user_info_table] == 'true'){
+			$config['sql_use_user_info_table'] == 'true'){
 		$res = @da_sql_query($link,$config,
 		"SELECT " . da_sql_limit($max,0,$config) . " username FROM $config[sql_user_info_table] WHERE
 		lower($search_IN) LIKE '%$search%' " .
 		da_sql_limit($max,1,$config) . " " . da_sql_limit($max,2,$config) . " ;");
 		if ($res){
 			while(($row = @da_sql_fetch_array($res,$config)))
-				$found_users[] = $row[username];
+				$found_users[] = $row['username'];
 		}
 		else
 			"<b>Database query failed: " . da_sql_error($link,$config) . "</b><br>\n";

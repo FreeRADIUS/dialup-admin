@@ -48,11 +48,11 @@ EOM;
 }
 
 $monthly_limit = ($item_vals['Max-Monthly-Session'][0] != '') ? $item_vals['Max-Monthly-Session'][0] : $default_vals['Max-Monthly-Session'][0];
-$monthly_limit = ($monthly_limit) ? $monthly_limit : $config[counter_default_monthly];
+$monthly_limit = ($monthly_limit) ? $monthly_limit : $config['counter_default_monthly'];
 $weekly_limit = ($item_vals['Max-Weekly-Session'][0] != '') ? $item_vals['Max-Weekly-Session'][0] : $default_vals['Max-Weekly-Session'][0];
-$weekly_limit = ($weekly_limit) ? $weekly_limit : $config[counter_default_weekly];
+$weekly_limit = ($weekly_limit) ? $weekly_limit : $config['counter_default_weekly'];
 $daily_limit = ($item_vals['Max-Daily-Session'][0] != '') ? $item_vals['Max-Daily-Session'][0] : $default_vals['Max-Daily-Session'][0];
-$daily_limit = ($daily_limit) ? $daily_limit : $config[counter_default_daily];
+$daily_limit = ($daily_limit) ? $daily_limit : $config['counter_default_daily'];
 $session_limit = ($item_vals['Session-Timeout'][0] != '') ? $item_vals['Session-Timeout'][0] : $default_vals['Session-Timeout'][0];
 $session_limit = ($session_limit) ? $session_limit : 'none';
 $remaining = 'unlimited time';
@@ -63,12 +63,12 @@ $week = $now - 604800;
 $now_str = date("$config[sql_date_format]",$now + 86400);
 $week_str = date("$config[sql_date_format]",$week);
 $day = date('w');
-$week_start = date($config[sql_date_format],$now - ($day)*86400);
-$month_start = date($config[sql_date_format],$now - date('j')*86400);
+$week_start = date($config['sql_date_format'],$now - ($day)*86400);
+$month_start = date($config['sql_date_format'],$now - date('j')*86400);
 $today = $day;
 $now_tmp = $now;
 for ($i = $day; $i >-1; $i--){
-	$days[$i] = date($config[sql_date_format],$now_tmp);
+	$days[$i] = date($config['sql_date_format'],$now_tmp);
 	$now_tmp -= 86400;
 }
 $day++;
@@ -76,7 +76,7 @@ $day++;
 $now -= 604800;
 $now += 86400;
 for ($i = $day; $i <= 6; $i++){
-	$days[$i] = date($config[sql_date_format],$now);
+	$days[$i] = date($config['sql_date_format'],$now);
 //	$now -= 86400;
 	$now += 86400;
 }
@@ -99,13 +99,13 @@ if ($link){
 	AND acctstarttime >= '$week_str' AND acctstarttime <= '$now_str';");
 	if ($search){
 		$row = @da_sql_fetch_array($search,$config);
-		$tot_time = time2str($row[sum_sess_time]);
-		$tot_input = bytes2str($row[sum_in_octets]);
-		$tot_output = bytes2str($row[sum_out_octets]);
-		$avg_time = time2str($row[avg_sess_time]);
-		$avg_input = bytes2str($row[avg_in_octets]);
-		$avg_output = bytes2str($row[avg_out_octets]);
-		$tot_conns = $row[counter];
+		$tot_time = time2str($row['sum_sess_time']);
+		$tot_input = bytes2str($row['sum_in_octets']);
+		$tot_output = bytes2str($row['sum_out_octets']);
+		$avg_time = time2str($row['avg_sess_time']);
+		$avg_input = bytes2str($row['avg_in_octets']);
+		$avg_output = bytes2str($row['avg_out_octets']);
+		$tot_conns = $row['counter'];
 	}
 	else
 		echo "<b>Database query failed: " . da_sql_error($link,$config) . "</b><br>\n";
@@ -114,11 +114,11 @@ if ($link){
 	AND acctstarttime >= '$week_start' AND acctstarttime <= '$now_str';");
 	if ($search){
 		$row = @da_sql_fetch_array($search,$config);
-		$weekly_used = $row[sum_sess_time];
+		$weekly_used = $row['sum_sess_time'];
 	}
 	else
 		echo "<b>Database query failed: " . da_sql_error($link,$config) . "</b><br>\n";
-	if ($monthly_limit != 'none' || $config[counter_monthly_calculate_usage] == 'true'){
+	if ($monthly_limit != 'none' || $config['counter_monthly_calculate_usage'] == 'true'){
 		$search = @da_sql_query($link,$config,
 		"SELECT sum(acctsessiontime) AS sum_sess_time FROM $config[sql_accounting_table] WHERE username = '$login'
 		AND acctstarttime >= '$month_start' AND acctstarttime <= '$now_str';");
@@ -137,7 +137,7 @@ if ($link){
 	acctterminatecause LIKE 'Multiple-Logins%');");
 	if ($search){
 		$row = @da_sql_fetch_array($search,$config);
-		$tot_badlogins = $row[counter];
+		$tot_badlogins = $row['counter'];
 	}
 	else
 		echo "<b>Database query failed: " . da_sql_error($link,$config) . "</b><br>\n";
@@ -150,13 +150,13 @@ if ($link){
 		AND acctstoptime <= '$days[$i] 23:59:59';");
 		if ($search){
 			$row = @da_sql_fetch_array($search,$config);
-			$used[$i] = $row[sum_sess_time];
+			$used[$i] = $row['sum_sess_time'];
 			if ($daily_limit != 'none' && $used[$i] > $daily_limit)
 				$used[$i] = "<font color=red>" . time2str($used[$i]) . "</font>";
 			else
 				$used[$i] = time2str($used[$i]);
 			if ($today == $i){
-				$daily_used = $row[sum_sess_time];
+				$daily_used = $row['sum_sess_time'];
 				if ($daily_limit != 'none'){
 					$remaining = $daily_limit - $daily_used;
 					if ($remaining <=0)
@@ -201,7 +201,7 @@ if ($link){
 			$remaining = $tmp;
 		$log_color = ($remaining) ? 'green' : 'red';
 	}
-	if ($monthly_limit != 'none' || $config[counter_monthly_calculate_usage] == 'true'){
+	if ($monthly_limit != 'none' || $config['counter_monthly_calculate_usage'] == 'true'){
 		$monthly_used = time2str($monthly_used);
 		if ($monthly_limit != 'none' && !$tmp)
 			$monthly_used = "<font color=red>$monthly_used</font>";

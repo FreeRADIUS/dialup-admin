@@ -6,7 +6,7 @@ else{
 	echo "<b>Could not include SQL library</b><br>\n";
 	exit();
 }
-if ($config[sql_use_operators] == 'true'){
+if ($config['sql_use_operators'] == 'true'){
 	$op = ',op';
 	$use_op = 1;
 }else{
@@ -44,16 +44,16 @@ if ($link){
 		if (@da_sql_num_rows($res,$config))
 			$user_exists = 'yes';
 		while(($row = @da_sql_fetch_array($res,$config))){
-			$attr = $row[attribute];
-			$val = $row[value];
-			if ($attr == $config[sql_password_attribute] && $val != '')
+			$attr = $row['attribute'];
+			$val = $row['value'];
+			if ($attr == $config['sql_password_attribute'] && $val != '')
 				$user_password_exists = 'yes';
 			if ($use_op){
-				$oper = $row[op];
-				$tmp["$attr"][operator][]="$oper";
+				$oper = $row['op'];
+				$tmp["$attr"]['operator'][]="$oper";
 			}
 			$tmp["$attr"][]="$val";
-			$tmp["$attr"][count]++;
+			$tmp["$attr"]['count']++;
 		}
 		$res = @da_sql_query($link,$config,
 		"SELECT attribute,value $op FROM $config[sql_reply_table] WHERE username = '$login';");
@@ -70,7 +70,7 @@ if ($link){
 				$tmp["$attr"][] = "$val";
 				$tmp["$attr"][count]++;
 			}
-			if ($config[sql_use_user_info_table] == 'true'){
+			if ($config['sql_use_user_info_table'] == 'true'){
 				$res = @da_sql_query($link,$config,
 				"SELECT * FROM $config[sql_user_info_table] WHERE username = '$login';");
 				if ($res){
@@ -79,12 +79,12 @@ if ($link){
 						$user_info = 1;
 					}
 					if (($row = @da_sql_fetch_array($res,$config))){
-						$cn = ($row[name] != '') ? $row[name] : '-';
-						$telephonenumber = ($row[workphone] != '') ? $row[workphone] : '-';
-						$homephone = ($row[homephone] != '') ? $row[homephone] : '-';
-						$ou = ($row[department] != '') ? $row[department] : '-';
-						$mail = ($row[mail] != '') ? $row[mail] : '-';
-						$mobile = ($row[mobile] != '') ? $row[mobile] : '-';
+						$cn = ($row['name'] != '') ? $row['name'] : '-';
+						$telephonenumber = ($row['workphone'] != '') ? $row['workphone'] : '-';
+						$homephone = ($row['homephone'] != '') ? $row['homephone'] : '-';
+						$ou = ($row['department'] != '') ? $row['department'] : '-';
+						$mail = ($row['mail'] != '') ? $row['mail'] : '-';
+						$mobile = ($row['mobile'] != '') ? $row['mobile'] : '-';
 					}
 				}
 				else
@@ -105,9 +105,9 @@ if ($link){
 					$rev_attrmap["$val"] = $key;
 				}
 				$item_vals["$key"] = $tmp[$val];
-				$item_vals["$key"][count] = $tmp[$val][count];
+				$item_vals["$key"]['count'] = $tmp[$val]['count'];
 				if ($use_op)
-					$item_vals["$key"][operator] = $tmp[$val][operator];
+					$item_vals["$key"]['operator'] = $tmp[$val]['operator'];
 			}
 		}
 

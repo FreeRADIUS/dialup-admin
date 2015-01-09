@@ -26,12 +26,12 @@ EOM;
 
 $now = time();
 if (!isset($last))
-	$last = ($config[general_most_recent_fl]) ? $config[general_most_recent_fl] : 5;
+	$last = ($config['general_most_recent_fl']) ? $config['general_most_recent_fl'] : 5;
 if (!is_numeric($last))
 	$last = 5;
 $start = $now - ($last*60);
-$now_str = date($config[sql_full_date_format],$now);
-$prev_str = date($config[sql_full_date_format],$start);
+$now_str = date($config['sql_full_date_format'],$now);
+$prev_str = date($config['sql_full_date_format'],$start);
 
 $now_str = da_sql_escape_string($now_str);
 $prev_str = da_sql_escape_string($prev_str);
@@ -41,7 +41,7 @@ if (!is_numeric($pagesize) && $pagesize != 'all')
 	$pagesize = 10;
 $limit = ($pagesize == 'all') ? '' : "$pagesize";
 $selected[$pagesize] = 'selected';
-$order = ($order != '') ? $order : $config[general_accounting_info_order];
+$order = ($order != '') ? $order : $config['general_accounting_info_order'];
 if ($order != 'desc' && $order != 'asc')
 	$order = 'desc';
 $selected[$order] = 'selected';
@@ -62,7 +62,7 @@ if (isset($_SESSION['da_name_cache']))
 
 <head>
 <title>Failed Logins</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -104,7 +104,7 @@ if ($acct_attrs['fl'][7] != '') echo "<th>" . $acct_attrs['fl'][7] . "</th>\n";
 if ($acct_attrs['fl'][8] != '') echo "<th>" . $acct_attrs['fl'][8] . "</th>\n";
 if ($acct_attrs['fl'][9] != '') echo "<th>" . $acct_attrs['fl'][9] . "</th>\n";
 unset($sql_extra_query);
-if ($config[sql_accounting_extra_query] != ''){
+if ($config['sql_accounting_extra_query'] != ''){
 	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
 	$sql_extra_query = da_sql_escape_string($sql_extra_query);
 }
@@ -209,10 +209,10 @@ EOM;
 <select name="server">
 <?php
 foreach ($nas_list as $nas){
-	$name = $nas[name];
-	if ($nas[ip] == '')
+	$name = $nas['name'];
+	if ($nas['ip'] == '')
 		continue;
-	$servers[$name] = $nas[ip];
+	$servers[$name] = $nas['ip'];
 }
 ksort($servers);
 foreach ($servers as $name => $ip){

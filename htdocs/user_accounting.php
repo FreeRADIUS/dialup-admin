@@ -25,15 +25,15 @@ EOM;
 }
 
 $now = time();
-$now_str = ($now_str != '') ? "$now_str" : date($config[sql_date_format],$now + 86400);
-$prev_str = ($prev_str != '') ? "$prev_str" : date($config[sql_date_format], $now - 604800 );
+$now_str = ($now_str != '') ? "$now_str" : date($config['sql_date_format'],$now + 86400);
+$prev_str = ($prev_str != '') ? "$prev_str" : date($config['sql_date_format'], $now - 604800 );
 $num = 0;
 $pagesize = ($pagesize) ? $pagesize : 10;
 if (!is_numeric($pagesize) && $pagesize != 'all')
 	$pagesize = 10;
 $limit = ($pagesize == 'all') ? '' : "$pagesize";
 $selected[$pagesize] = 'selected';
-$order = ($order != '') ? $order : $config[general_accounting_info_order];
+$order = ($order != '') ? $order : $config['general_accounting_info_order'];
 if ($order != 'desc' && $order != 'asc')
 	$order = 'desc';
 $selected[$order] = 'selected';
@@ -93,7 +93,7 @@ for($i=1;$i<=9;$i++){
 		echo "<th>" . $acct_attrs['ua']["$i"] . "</th>\n";
 }
 $sql_extra_query = '';
-if ($config[sql_accounting_extra_query] != '')
+if ($config['sql_accounting_extra_query'] != '')
 	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
 ?>
 	</tr>
@@ -113,30 +113,30 @@ if ($link){
 			$acct_type = "$row[framedprotocol]/$row[nasporttype]";
 			if ($acct_type == '')
 				$acct_type = '-';
-			$acct_logedin = $row[acctstarttime];
-			$acct_sessiontime = $row[acctsessiontime];
+			$acct_logedin = $row['acctstarttime'];
+			$acct_sessiontime = $row['acctsessiontime'];
 			$acct_sessiontime_sum += $acct_sessiontime;
 			$acct_sessiontime = time2str($acct_sessiontime);
-			$acct_ip = $row[framedipaddress];
+			$acct_ip = $row['framedipaddress'];
 			if ($acct_ip == '')
 				$acct_ip = '-';
-			$acct_upload = $row[acctinputoctets];
+			$acct_upload = $row['acctinputoctets'];
 			$acct_upload_sum += $acct_upload;
 			$acct_upload = bytes2str($acct_upload);
-			$acct_download = $row[acctoutputoctets];
+			$acct_download = $row['acctoutputoctets'];
 			$acct_download_sum += $acct_download;
 			$acct_download = bytes2str($acct_download);
-			$acct_server = $row[nasipaddress];
+			$acct_server = $row['nasipaddress'];
 			if ($acct_server != ''){
-				$acct_server = $da_name_cache[$row[nasipaddress]];
+				$acct_server = $da_name_cache[$row['nasipaddress']];
 				if (!isset($acct_server)){
-					$acct_server = @gethostbyaddr($row[nasipaddress]);
-					if (!isset($da_name_cache) && $config[general_use_session] == 'yes'){
-						$da_name_cache[$row[nasipaddress]] = $acct_server;
+					$acct_server = @gethostbyaddr($row['nasipaddress']);
+					if (!isset($da_name_cache) && $config['general_use_session'] == 'yes'){
+						$da_name_cache[$row['nasipaddress']] = $acct_server;
 						session_register('da_name_cache');
 					}
 					else
-						$da_name_cache[$row[nasipaddress]] = $acct_server;
+						$da_name_cache[$row['nasipaddress']] = $acct_server;
 				}
 			}
 			else
@@ -155,15 +155,15 @@ if ($link){
 			<tr align=center bgcolor="$tr_color">
 				<td>$num</td>
 EOM;
-				if ($acct_attrs[ua][1] != '') echo "<td>$acct_type</td>\n";
-				if ($acct_attrs[ua][2] != '') echo "<td>$acct_logedin</td>\n";
-				if ($acct_attrs[ua][3] != '') echo "<td>$acct_sessiontime</td>\n";
-				if ($acct_attrs[ua][4] != '') echo "<td>$acct_ip</td>\n";
-				if ($acct_attrs[ua][5] != '') echo "<td>$acct_upload</td>\n";
-				if ($acct_attrs[ua][6] != '') echo "<td>$acct_download</td>\n";
-				if ($acct_attrs[ua][7] != '') echo "<td>$acct_server</td>\n";
-				if ($acct_attrs[ua][8] != '') echo "<td>$acct_terminate_cause</td>\n";
-				if ($acct_attrs[ua][9] != '') echo "<td>$acct_callerid</td>\n";
+				if ($acct_attrs['ua'][1] != '') echo "<td>$acct_type</td>\n";
+				if ($acct_attrs['ua'][2] != '') echo "<td>$acct_logedin</td>\n";
+				if ($acct_attrs['ua'][3] != '') echo "<td>$acct_sessiontime</td>\n";
+				if ($acct_attrs['ua'][4] != '') echo "<td>$acct_ip</td>\n";
+				if ($acct_attrs['ua'][5] != '') echo "<td>$acct_upload</td>\n";
+				if ($acct_attrs['ua'][6] != '') echo "<td>$acct_download</td>\n";
+				if ($acct_attrs['ua'][7] != '') echo "<td>$acct_server</td>\n";
+				if ($acct_attrs['ua'][8] != '') echo "<td>$acct_terminate_cause</td>\n";
+				if ($acct_attrs['ua'][9] != '') echo "<td>$acct_callerid</td>\n";
 			echo "</tr>\n";
 		}
 		$acct_sessiontime_sum = time2str($acct_sessiontime_sum);
@@ -176,21 +176,21 @@ EOM;
 else
 	echo "<b>Could not connect to SQL database</b><br>\n";
 $colspan = 3;
-if ($acct_attrs[ua][1] == '')
+if ($acct_attrs['ua'][1] == '')
 	$colspan--;
-if ($acct_attrs[ua][2] == '')
+if ($acct_attrs['ua'][2] == '')
 	$colspan--;
 echo <<<EOM
 			<tr bgcolor="lightyellow">
 			<td colspan=$colspan align="right">Page Total</td>
 EOM;
-				if ($acct_attrs[ua][3] != '') echo "<td align=\"center\"><b>$acct_sessiontime_sum</td>\n";
-				if ($acct_attrs[ua][4] != '') echo "<td>&nbsp;</td>\n";
-				if ($acct_attrs[ua][5] != '') echo "<td align=\"right\" nowrap><b>$acct_upload_sum</td>\n";
-				if ($acct_attrs[ua][6] != '') echo "<td align=\"right\" nowrap><b>$acct_download_sum</td>\n";
-				if ($acct_attrs[ua][7] != '') echo "<td>&nbsp;</td>\n";
-				if ($acct_attrs[ua][8] != '') echo "<td>&nbsp;</td>\n";
-				if ($acct_attrs[ua][9] != '') echo "<td>&nbsp;</td>\n";
+				if ($acct_attrs['ua'][3] != '') echo "<td align=\"center\"><b>$acct_sessiontime_sum</td>\n";
+				if ($acct_attrs['ua'][4] != '') echo "<td>&nbsp;</td>\n";
+				if ($acct_attrs['ua'][5] != '') echo "<td align=\"right\" nowrap><b>$acct_upload_sum</td>\n";
+				if ($acct_attrs['ua'][6] != '') echo "<td align=\"right\" nowrap><b>$acct_download_sum</td>\n";
+				if ($acct_attrs['ua'][7] != '') echo "<td>&nbsp;</td>\n";
+				if ($acct_attrs['ua'][8] != '') echo "<td>&nbsp;</td>\n";
+				if ($acct_attrs['ua'][9] != '') echo "<td>&nbsp;</td>\n";
 ?>
 				</tr>
 	</table>

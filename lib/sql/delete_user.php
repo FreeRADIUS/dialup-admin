@@ -17,7 +17,7 @@ if ($link){
 				"DELETE FROM $config[sql_usergroup_table] WHERE username = '$login';");
 			if (!$res)
 				echo "<b>Error deleting user $login from user group table: " . da_sql_error($link,$config) . "</b><br>\n";
-			if ($config[sql_use_user_info_table] == 'true'){
+			if ($config['sql_use_user_info_table'] == 'true'){
 				$res = @da_sql_query($link,$config,
 				"DELETE FROM $config[sql_user_info_table] WHERE username = '$login';");
 				if ($res)

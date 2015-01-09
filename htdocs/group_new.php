@@ -5,7 +5,7 @@ if ($show == 1){
 	exit;
 }
 
-if ($config[general_lib_type] != 'sql'){
+if ($config['general_lib_type'] != 'sql'){
 	echo <<<EOM
 <title>New group creation page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=$config[general_charset]">
@@ -24,7 +24,7 @@ require('../lib/attrshow.php');
 require('../lib/defaults.php');
 require("../lib/$config[general_lib_type]/group_info.php");
 
-if ($config[general_lib_type] == 'sql' && $config[sql_use_operators] == 'true'){
+if ($config['general_lib_type'] == 'sql' && $config['sql_use_operators'] == 'true'){
 	$colspan=2;
 	$show_ops=1;
 }else{
@@ -37,7 +37,7 @@ if ($config[general_lib_type] == 'sql' && $config[sql_use_operators] == 'true'){
 <html>
 <head>
 <title>New group creation page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>

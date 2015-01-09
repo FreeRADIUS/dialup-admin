@@ -239,7 +239,7 @@ if ($user_info){
 	</td>
 	</tr>
 EOM;
-	if ($config[general_prefered_lang] != 'en'){
+	if ($config['general_prefered_lang'] != 'en'){
 		echo <<<EOM
 	<tr>
 	<td align=center bgcolor="#d0ddb0">
@@ -261,7 +261,7 @@ EOM;
 	</td>
 	</tr>
 EOM;
-	if ($config[general_prefered_lang] != 'en'){
+	if ($config['general_prefered_lang'] != 'en'){
 		echo <<<EOM
 	<tr>
 	<td align=center bgcolor="#d0ddb0">
@@ -283,7 +283,7 @@ EOM;
 	</td>
 	</tr>
 EOM;
-	if ($config[general_prefered_lang] != 'en'){
+	if ($config['general_prefered_lang'] != 'en'){
 		echo <<<EOM
 	<tr>
 	<td align=center bgcolor="#d0ddb0">
@@ -305,7 +305,7 @@ EOM;
 	</td>
 	</tr>
 EOM;
-	if ($config[general_prefered_lang] != 'en'){
+	if ($config['general_prefered_lang'] != 'en'){
 		echo <<<EOM
 	<tr>
 	<td align=center bgcolor="#d0ddb0">
@@ -327,7 +327,7 @@ EOM;
 	</td>
 	</tr>
 EOM;
-	if ($config[general_prefered_lang] != 'en'){
+	if ($config['general_prefered_lang'] != 'en'){
 		echo <<<EOM
 	<tr>
 	<td align=center bgcolor="#d0ddb0">
