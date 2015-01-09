@@ -6,7 +6,7 @@ $extra_text = '';
 if ($user_type != 'group'){
 	if (is_file("../lib/$config[general_lib_type]/user_info.php"))
 		include("../lib/$config[general_lib_type]/user_info.php");
-	if ($config[general_lib_type] == 'sql' && $config[sql_show_all_groups] == 'true'){
+	if ($config['general_lib_type'] == 'sql' && $config['sql_show_all_groups'] == 'true'){
 		$extra_text = "<br><font size=-2><i>(The groups that the user is a member of are highlated)</i></font>";
 		$saved_login = $login;
 		$login = '';
@@ -19,7 +19,7 @@ else{
 	if (is_file("../lib/$config[general_lib_type]/group_info.php"))
 		include("../lib/$config[general_lib_type]/group_info.php");
 }
-if ($config[general_lib_type] == 'sql' && $config[sql_use_operators] == 'true'){
+if ($config['general_lib_type'] == 'sql' && $config['sql_use_operators'] == 'true'){
 	$colspan=2;
 	$show_ops = 1;
 	include("../lib/operators.php");
@@ -41,7 +41,7 @@ else
 	echo " <title>subscription configuration for $login</title>\n";
 ?>
 
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -120,7 +120,7 @@ Please take that into consideration when adding attributes in the group<br>
 and selecting operators.
 <br>
 EOM;
-if ($user_type != 'group' && $config[general_show_user_password] != 'no'){
+if ($user_type != 'group' && $config['general_show_user_password'] != 'no'){
 	echo <<<EOM
 <tr>
 <td align=right colspan=$colspan bgcolor="#d0ddb0">
@@ -140,21 +140,21 @@ EOM;
 }
 	foreach($show_attrs as $key => $desc){
 		$name = $attrmap["$key"];
-		$generic = $attrmap[generic]["$key"];
+		$generic = $attrmap['generic']["$key"];
 		if ($name == 'none')
 			continue;
 		unset($vals);
 		unset($ops);
 		$def_added = 0;
-		if ($item_vals["$key"][count]){
-			for($i=0;$i<$item_vals["$key"][count];$i++){
+		if ($item_vals["$key"]['count']){
+			for($i=0;$i<$item_vals["$key"]['count'];$i++){
 				$vals[] = $item_vals["$key"][$i];
 				$ops[] = $item_vals["$key"][operator][$i];
 			}
 		}
 		else{
-			if ($default_vals["$key"][count]){
-				for($i=0;$i<$default_vals["$key"][count];$i++){
+			if ($default_vals["$key"]['count']){
+				for($i=0;$i<$default_vals["$key"]['count'];$i++){
 					$vals[] = $default_vals["$key"][$i];
 					$ops[] = $default_vals["$key"][operator][$i];
 				}
@@ -257,7 +257,7 @@ Member of $extra_text
 <td>
 <select size=2 name="edited_groups[]" multiple OnChange="this.form.group_change.value=1">
 EOM;
-	if ($config[sql_show_all_groups] == 'true'){
+	if ($config['sql_show_all_groups'] == 'true'){
 		foreach ($existing_groups as $group => $count){
 			if ($member_groups[$group] == $group)
 				echo "<option selected value=\"$group\">$group\n";

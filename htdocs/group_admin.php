@@ -4,7 +4,7 @@ if ($show == 1 && isset($del_members)){
         header("Location: user_admin.php?login=$del_members[0]");
         exit;
 }
-if ($config[general_lib_type] != 'sql'){
+if ($config['general_lib_type'] != 'sql'){
 	echo <<<EOM
 <title>Group Administration Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=$config[general_charset]">
@@ -46,7 +46,7 @@ EOM;
 <html>
 <head>
 <title>Group Administration Page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>

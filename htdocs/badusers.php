@@ -23,7 +23,7 @@ EOM;
 }
 
 $now = time();
-$now_str = ($now_str != '') ? "$now_str" : date($config[sql_date_format],$now + 86400);
+$now_str = ($now_str != '') ? "$now_str" : date($config['sql_date_format'],$now + 86400);
 $prev_str = ($prev_str != '') ? "$prev_str" : "0001-01-01 00:00:00";
 
 $now_str = da_sql_escape_string($now_str);
@@ -37,7 +37,7 @@ $limit = ($pagesize == 'all') ? '' : "$pagesize";
 $selected[$pagesize] = 'selected';
 $login = ($login != '') ? $login : 'anyone';
 $usercheck = ($login == 'anyone') ? "LIKE '%'" : "= '$login'";
-$order = ($order != '') ? $order : $config[general_accounting_info_order];
+$order = ($order != '') ? $order : $config['general_accounting_info_order'];
 if ($order != 'desc' && $order != 'asc')
 	$order = 'desc';
 $selected[$order] = 'selected';
@@ -138,7 +138,7 @@ EOM;
 
 <?php
 $auth_user = $_SERVER["PHP_AUTH_USER"];
-if ($config[general_restrict_badusers_access] == 'yes'){
+if ($config['general_restrict_badusers_access'] == 'yes'){
 	$auth_user = da_sql_escape_string($auth_user);
 	$extra_query = "AND admin == '$auth_user'";
 }

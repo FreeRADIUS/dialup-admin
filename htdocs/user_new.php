@@ -7,7 +7,7 @@ if ($show == 1){
 require('../lib/attrshow.php');
 require('../lib/defaults.php');
 
-if ($config[general_lib_type] == 'sql' && $config[sql_use_operators] == 'true'){
+if ($config['general_lib_type'] == 'sql' && $config['sql_use_operators'] == 'true'){
 	$colspan=2;
 	$show_ops=1;
 }else{
@@ -20,7 +20,7 @@ if ($config[general_lib_type] == 'sql' && $config[sql_use_operators] == 'true'){
 <html>
 <head>
 <title>New user creation page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -90,7 +90,7 @@ EOM;
 		</td>
 	</tr>
 EOM;
-	if ($config[general_lib_type] == 'sql'){
+	if ($config['general_lib_type'] == 'sql'){
 		if (isset($member_groups))
 			$selected[$member_groups[0]] = 'selected';
 		echo <<<EOM
@@ -109,8 +109,8 @@ EOM;
 	</tr>
 EOM;
 	}
-	if ($config[general_lib_type] == 'ldap' ||
-	($config[general_lib_type] == 'sql' && $config[sql_use_user_info_table] == 'true')){
+	if ($config['general_lib_type'] == 'ldap' ||
+	($config['general_lib_type'] == 'sql' && $config['sql_use_user_info_table'] == 'true')){
 		echo <<<EOM
 	<tr>
 		<td align=right colspan=$colspan bgcolor="#d0ddb0">

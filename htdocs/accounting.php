@@ -25,7 +25,7 @@ EOM;
 }
 
 $operators=array( '=','<', '>', '<=', '>=', '!=', 'regexp', 'like', 'not like' );
-if ($config[sql_type] == 'pg'){
+if ($config['sql_type'] == 'pg'){
 	$operators=array( '=','<', '>', '<=', '>=', '~', 'like', '~*', '~~*', '<<=' );
 }
 
@@ -37,10 +37,10 @@ unset($items);
 
 for($i=0;$i<$no_fields;$i++){
 	$key = strtolower(@da_sql_field_name($fields,$i,$config));
-	$val = $sql_attrs[$key][desc];
+	$val = $sql_attrs[$key]['desc'];
 	if ($val == '')
 		continue;
-	$show = $sql_attrs[$key][show];
+	$show = $sql_attrs[$key]['show'];
 	$selected[$key] = ($show == 'yes') ? 'selected' : '';
 	$items[$key] = "$val";
 }
@@ -108,7 +108,7 @@ EOM;
 <html>
 <head>
 <title>Accounting Report Generator</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -236,7 +236,7 @@ foreach ($accounting_show_attrs as $val)
 $query_view = preg_replace('/,$/','',$query_view);
 unset($sql_extra_query);
 if ($config[sql_accounting_extra_query] != '')
-	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
+	$sql_extra_query = xlat($config['sql_accounting_extra_query'],$login,$config);
 	$sql_extra_query = da_sql_escape_string($sql_extra_query);
 $query="SELECT " . da_sql_limit($maxresults,0,$config) . " $query_view FROM $config[sql_accounting_table]
 	$where $sql_extra_query " . da_sql_limit($maxresults,1,$config) .
@@ -268,7 +268,7 @@ echo <<<EOM
 	</tr>
 EOM;
 foreach($accounting_show_attrs as $val){
-	$desc = $sql_attrs[$val][desc];
+	$desc = $sql_attrs[$val]['desc'];
 	echo "<th>$desc</th>\n";
 }
 echo "</tr>\n";
@@ -282,7 +282,7 @@ echo "</tr>\n";
 				$info = $row[$val];
 				if ($info == '')
 					$info = '-';
-				$info = $sql_attrs[$val][func]($info);
+				$info = $sql_attrs[$val]['func']($info);
 				if ($val == 'username'){
 					$Info = urlencode($info);
 					$info = "<a href=\"user_admin.php?login=$Info\" title=\"Edit user $info\">$info<a/>";

@@ -6,7 +6,7 @@ require_once('../lib/xlat.php');
 <html>
 <head>
 <title>account analysis</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,8 +31,8 @@ $stats_num = array();
 $date = strftime('%A, %e %B %Y, %T %Z');
 $now = time();
 if ($before == '')
-	$before = date($config[sql_date_format], $now + 86400);
-$after = ($after != '') ? "$after" : date($config[sql_date_format], $now - 604800 );
+	$before = date($config['sql_date_format'], $now + 86400);
+$after = ($after != '') ? "$after" : date($config['sql_date_format'], $now - 604800 );
 
 $after_time = date2time($after);
 $before_time = date2time($before);
@@ -60,7 +60,7 @@ $message['sessions'] = 'sessions';
 $message['usage'] = 'total usage time';
 $message['upload'] = 'uploads';
 $message['download'] = 'downloads';
-if ($config[general_stats_use_totacct] == 'yes'){
+if ($config['general_stats_use_totacct'] == 'yes'){
 	$sql_val['sessions'] = 'connnum';
 	$sql_val['usage'] = 'conntotduration';
 	$sql_val['upload'] = 'inputoctets';
@@ -81,12 +81,12 @@ for ($j = 1; $j <= 3; $j++){
 	$res[$j] = ($tmp == "") ? "COUNT(radacctid) AS res_$j" : "sum($tmp) AS res_$j";
 }
 $i = 1;
-$servers[all] = 'all';
+$servers['all'] = 'all';
 foreach ($nas_list as $nas){
-	$name = $nas[name];
-	if ($nas[ip] == '')
+	$name = $nas['name'];
+	if ($nas['ip'] == '')
 		continue;
-	$servers[$name] = $nas[ip];
+	$servers[$name] = $nas['ip'];
 	$i++;
 }
 ksort($servers);
@@ -95,14 +95,14 @@ if ($server != 'all' && $server != ''){
 	$s = "AND nasipaddress = '$server'";
 }
 $sql_extra_query = '';
-if ($config[sql_accounting_extra_query] != '')
+if ($config['sql_accounting_extra_query'] != '')
 	$sql_extra_query = xlat($config[sql_accounting_extra_query],$login,$config);
 
 $link = @da_sql_pconnect($config);
 if ($link){
 	for ($i = $num_days;$i > -1; $i--){
 		$day = "$days[$i]";
-		if ($config[general_stats_use_totacct] == 'yes')
+		if ($config['general_stats_use_totacct'] == 'yes')
 			$search = @da_sql_query($link,$config,
 			"SELECT $res[1],$res[2],$res[3] FROM $config[sql_total_accounting_table]
 			$sql_val[user] AND acctdate = '$day' $s $sql_extra_query;");
@@ -113,14 +113,14 @@ if ($link){
 			AND acctstoptime <= '$day 23:59:59' $s $sql_extra_query;");
 		if ($search){
 			$row = @da_sql_fetch_array($search,$config);
-			$data[$day][1] = $row[res_1];
-			$data[sum][1] += $row[res_1];
+			$data[$day][1] = $row['res_1'];
+			$data['sum'][1] += $row['res_1'];
 			$stats_num[1] = ($data[$day][1]) ? $stats_num[1] + 1 : $stats_num[1];
-			$data[$day][2] = $row[res_2];
-			$data[sum][2] += $row[res_2];
+			$data[$day][2] = $row['res_2'];
+			$data['sum'][2] += $row['res_2'];
 			$stats_num[2] = ($data[$day][2]) ? $stats_num[2] + 1 : $stats_num[2];
-			$data[$day][3] = $row[res_3];
-			$data[sum][3] += $row[res_3];
+			$data[$day][3] = $row['res_3'];
+			$data['sum'][3] += $row['res_3'];
 			$stats_num[3] = ($data[$day][3]) ? $stats_num[3] + 1 : $stats_num[3];
 		}
 		else
@@ -177,9 +177,9 @@ for ($i = 0; $i <= $num_days; $i++){
 	$data[$day][3] = $fun[$column[3]]($data[$day][3]);
 }
 
-$data[max][1] = $fun[$column[1]]($max[1]);
-$data[max][2] = $fun[$column[2]]($max[2]);
-$data[max][3] = $fun[$column[3]]($max[3]);
+$data['max'][1] = $fun[$column[1]]($max[1]);
+$data['max'][2] = $fun[$column[2]]($max[2]);
+$data['max'][3] = $fun[$column[3]]($max[3]);
 
 require('../html/stats.html.php');
 ?>

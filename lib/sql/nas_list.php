@@ -5,7 +5,7 @@ require_once('../lib/functions.php');
 unset($da_name_cache);
 if (isset($_SESSION['da_name_cache']))
 	$da_name_cache = $_SESSION['da_name_cache'];
-if ($config[sql_nas_table] != ''){
+if ($config['sql_nas_table'] != ''){
 
 	if (is_file("../lib/sql/drivers/$config[sql_type]/functions.php"))
 		include_once("../lib/sql/drivers/$config[sql_type]/functions.php");
@@ -17,9 +17,9 @@ if ($config[sql_nas_table] != ''){
 	if ($link){
 		$auth_user = $_SERVER["PHP_AUTH_USER"];
 		$extra = '';
-		if (isset($mappings[$auth_user][nasdb])){
+		if (isset($mappings[$auth_user]['nasdb'])){
 			$NAS_ARR = array();
-			$NAS_ARR = preg_split('/,/',$mappings[$auth_user][nasdb]);
+			$NAS_ARR = preg_split('/,/',$mappings[$auth_user]['nasdb']);
 			$extra = 'WHERE nasname IN (';
 			foreach ($NAS_ARR as $nas)
 				$extra .= "'$nasname',";
@@ -41,7 +41,7 @@ if ($config[sql_nas_table] != ''){
 	                                        	$nas_server = @gethostbyname($my_nas_name);
 						else
 							$nas_server = $my_nas_name;
-                                        	if (!isset($da_name_cache) && $config[general_use_session] == 'yes'){
+                                        	if (!isset($da_name_cache) && $config['general_use_session'] == 'yes'){
                                                 	$da_name_cache[$my_nas_name] = $nas_server;
                                                 	session_register('da_name_cache');
                                         	}

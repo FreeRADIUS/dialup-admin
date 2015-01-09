@@ -7,7 +7,7 @@ if ($login != '' && $user_type != 'group'){
 		echo "<b>Could not include SQL library</b><br>\n";
 		exit();
 	}
-	if ($config[sql_use_operators] == 'true'){
+	if ($config['sql_use_operators'] == 'true'){
 		$op = ',op';
 		$use_op = 1;
 	}else{
@@ -95,7 +95,7 @@ if ($login != '' && $user_type != 'group'){
 				}
 			}
 			if ($times == 1){
-				if ($config[sql_default_user_profile] == '')
+				if ($config['sql_default_user_profile'] == '')
 					$stop = 1;
 				else{
 					$saved_login = $login;
@@ -128,7 +128,7 @@ else{
 		"SELECT DISTINCT groupname FROM $config[sql_usergroup_table];");
 		if ($res){
 			while(($row = @da_sql_fetch_array($res,$config)))
-				$member_groups[] = $row[groupname];
+				$member_groups[] = $row['groupname'];
 		}
 		else
 			echo "<b>Database query failed: " . da_sql_error($link,$config) . "</b><br>\n";

@@ -4,7 +4,7 @@ require('../conf/config.php');
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config[general_charset]?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $config['general_charset']?>">
 <title>Personal information page</title>
 <link rel="stylesheet" href="style.css">
 </head>

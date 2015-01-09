@@ -15,7 +15,7 @@ if (!isset($text_default_vals)){
 	}
 	if (!isset($text_default_vals))
 		$text_default_vals["NOT_EXIST"][0] = '0';
-	if ($config[general_use_session] == 'yes')
+	if ($config['general_use_session'] == 'yes')
 		session_register('text_default_vals');
 }
 $default_vals = $text_default_vals;

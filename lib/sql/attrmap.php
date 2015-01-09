@@ -29,7 +29,7 @@ else{
 			}
 		}
 	}
-	if ($config[general_use_session] == 'yes'){
+	if ($config['general_use_session'] == 'yes'){
 		session_register('attrmap');
 		session_register('rev_attrmap');
 		session_register('attr_type');

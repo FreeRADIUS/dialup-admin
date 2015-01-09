@@ -16,7 +16,7 @@ else{
 EOM;
 	exit();
 }
-if ($config[general_restrict_nasadmin_access] == 'yes'){
+if ($config['general_restrict_nasadmin_access'] == 'yes'){
 	$auth_user = $_SERVER["PHP_AUTH_USER"];
 	if ($auth_user == '' || $mappings[$auth_user][nasadmin] != 'yes'){
 		echo <<<EOM
@@ -188,7 +188,7 @@ NAS List
 <select name=selected_nas size=5 OnChange="this.form.select_nas.value=1;this.form.submit()">
 <?php
 foreach ($my_nas_list as $member){
-	$name = $member[name];
+	$name = $member['name'];
 	echo "<option $selected[$name] value=\"$name\">$name\n";
 }
 ?>
