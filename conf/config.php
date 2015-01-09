@@ -6,7 +6,8 @@
 $testVer=intval(str_replace(".", "",'4.1.0'));
 $curVer=intval(str_replace(".", "",phpversion()));
 if( $curVer >= $testVer )
-	import_request_variables('GPC');
+#	import_request_variables('GPC');
+extract($_REQUEST);
 # If using sessions set use_session to 1 to also cache the config file
 #
 $use_session = 0;
@@ -64,7 +65,7 @@ if (!isset($config)){
 	}
 
 }
-if ($use_session == 0 && $config[general_use_session] == 'yes'){
+if ($use_session == 0 && $config['general_use_session'] == 'yes'){
 	// Start session
 	@session_start();
 	if (isset($nas_list))
@@ -84,8 +85,8 @@ if ($login != '' && $config[general_strip_realms] == 'yes'){
 unset($mappings);
 if (isset($_SESSION['mappings']))
 	$mappings = $_SESSION['mappings'];
-if (!isset($mappings) && $config[general_username_mappings_file] != ''){
-	$ARR = file($config[general_username_mappings_file]);
+if (!isset($mappings) && $config['general_username_mappings_file'] != ''){
+	$ARR = file($config['general_username_mappings_file']);
 	foreach($ARR as $val){
 		$val=chop($val);
 		if (preg_match('/^[[:space:]]*#/',$val) || preg_match('/^[[:space:]]*$/',$val))
@@ -104,11 +105,11 @@ if (!isset($mappings) && $config[general_username_mappings_file] != ''){
 			}
 		}
 	}
-	if ($config[general_use_session] == 'yes')
+	if ($config['general_use_session'] == 'yes')
 		session_register('mappings');
 }
 
-date_default_timezone_set($config[timezone]);
+date_default_timezone_set($config['timezone']);
 
 //Include missing.php if needed
 if (!function_exists('array_change_key_case'))
