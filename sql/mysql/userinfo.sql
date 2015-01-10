@@ -2,7 +2,7 @@
 # Table structure for table 'userinfo'
 #
 CREATE TABLE userinfo (
-  id int(10) DEFAULT '0' NOT NULL auto_increment,
+  id int(10) NOT NULL auto_increment,
   UserName varchar(30),
   Name varchar(200),
   Mail varchar(200),
